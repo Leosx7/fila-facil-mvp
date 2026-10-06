@@ -1,17 +1,23 @@
 {
-  "name": "fila-facil-aula09",
+  "name": "fila-facil-aula10",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "node src/server.js",
+    "test:contrato": "node --test test/contrato.test.js"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.58.0"
+    "@supabase/supabase-js": "^2.58.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0"
   },
   "devDependencies": {
+    "supertest": "^7.1.4",
     "vite": "^7.1.7"
   }
 }
