@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fila Fácil</title>
+</head>
+<body>
+  <main>
+    <h1>Fila Fácil</h1>
+    <p class="subtitulo">Cadastre uma solicitação de atendimento.</p>
+
+    <form id="form-solicitacao">
+      <div>
+        <label for="nome">Nome</label>
+        <input id="nome" maxlength="80" required placeholder="Seu nome" />
+      </div>
+
+      <div>
+        <label for="servico">Serviço</label>
+        <input id="servico" maxlength="80" required placeholder="Ex.: Atendimento geral" />
+      </div>
+
+      <div>
+        <label for="prioridade">Prioridade</label>
+        <select id="prioridade" required>
+          <option value="normal">Normal</option>
+          <option value="prioritaria">Prioritária</option>
+        </select>
+      </div>
+
+      <button id="enviar" type="submit">Entrar na fila</button>
+    </form>
+
+    <p id="mensagem" class="mensagem" aria-live="polite"></p>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
