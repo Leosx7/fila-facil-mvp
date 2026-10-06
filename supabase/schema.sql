@@ -26,3 +26,17 @@ create policy "Permitir leitura publica"
 on public.solicitacoes
 for select
 using (true);
+
+
+drop policy if exists "Permitir atualizacao publica" on public.solicitacoes;
+create policy "Permitir atualizacao publica"
+on public.solicitacoes
+for update
+using (true)
+with check (true);
+
+drop policy if exists "Permitir remocao publica" on public.solicitacoes;
+create policy "Permitir remocao publica"
+on public.solicitacoes
+for delete
+using (true);
