@@ -7,18 +7,18 @@ O recurso central da API é `solicitacoes`.
 Base URI proposta:
 
 ```text
-/api/solicitacoes
+/api/v1/solicitacoes
 ```
 
 ## Contrato RESTful
 
 | Método | URI | Objetivo | Sucesso | Erros esperados |
 |---|---|---|---|---|
-| GET | `/api/solicitacoes` | Listar solicitações | `200 OK` | `500 Internal Server Error` |
-| GET | `/api/solicitacoes/{id}` | Consultar uma solicitação por UUID | `200 OK` | `404 Not Found`, `500 Internal Server Error` |
-| POST | `/api/solicitacoes` | Criar uma nova solicitação | `201 Created` + cabeçalho `Location` | `400 Bad Request`, `500 Internal Server Error` |
-| PUT | `/api/solicitacoes/{id}` | Atualizar integralmente uma solicitação | `200 OK` | `400 Bad Request`, `404 Not Found`, `500 Internal Server Error` |
-| DELETE | `/api/solicitacoes/{id}` | Remover uma solicitação | `204 No Content` | `404 Not Found`, `500 Internal Server Error` |
+| GET | `/api/v1/solicitacoes` | Listar solicitações | `200 OK` | `500 Internal Server Error` |
+| GET | `/api/v1/solicitacoes/{id}` | Consultar uma solicitação por UUID | `200 OK` | `404 Not Found`, `500 Internal Server Error` |
+| POST | `/api/v1/solicitacoes` | Criar uma nova solicitação | `201 Created` + cabeçalho `Location` | `400 Bad Request`, `500 Internal Server Error` |
+| PUT | `/api/v1/solicitacoes/{id}` | Atualizar integralmente uma solicitação | `200 OK` | `400 Bad Request`, `404 Not Found`, `500 Internal Server Error` |
+| DELETE | `/api/v1/solicitacoes/{id}` | Remover uma solicitação | `204 No Content` | `404 Not Found`, `500 Internal Server Error` |
 
 ## Payload para criação
 
@@ -36,7 +36,7 @@ Status:
 
 ```text
 201 Created
-Location: /api/solicitacoes/5216ff1a-6113-4913-b083-f6b4f2e9d8db
+Location: /api/v1/solicitacoes/5216ff1a-6113-4913-b083-f6b4f2e9d8db
 ```
 
 Body:
