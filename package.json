@@ -1,5 +1,5 @@
 {
-  "name": "fila-facil-aula10",
+  "name": "fila-facil-aula12",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "server": "node src/server.js",
-    "test:contrato": "node --test test/contrato.test.js"
+    "test": "node --test test/*.test.js",
+    "test:contrato": "node --test test/*.test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.58.0",

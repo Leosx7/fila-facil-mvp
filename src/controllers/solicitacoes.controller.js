@@ -1,21 +1,8 @@
 import { solicitacoesRepository } from '../repositories/solicitacoes.repository.js';
-
-const PRIORIDADES = ['normal', 'prioritaria'];
-const STATUS = ['aguardando', 'em_atendimento', 'concluido'];
-
-function payloadValido(body) {
-  const nome = body?.nome_cliente?.trim();
-  const servico = body?.servico?.trim();
-  const prioridade = body?.prioridade;
-  const status = body?.status ?? 'aguardando';
-
-  if (!nome || nome.length < 2 || nome.length > 80) return null;
-  if (!servico || servico.length < 2 || servico.length > 80) return null;
-  if (!PRIORIDADES.includes(prioridade)) return null;
-  if (!STATUS.includes(status)) return null;
-
-  return { nome_cliente: nome, servico, prioridade, status };
-}
+import {
+  validarCriacaoSolicitacao,
+  validarAtualizacaoSolicitacao,
+} from '../validators/solicitacao.validator.js';
 
 export const solicitacoesController = {
   async listar(req, res) {
@@ -38,13 +25,13 @@ export const solicitacoesController = {
   },
 
   async criar(req, res) {
-    const payload = payloadValido(req.body);
-    if (!payload) {
-      return res.status(400).json({ erro: 'Dados inválidos.' });
+    const validacao = validarCriacaoSolicitacao(req.body);
+    if (!validacao.valido) {
+      return res.status(400).json({ erro: validacao.erro });
     }
 
     try {
-      const nova = await solicitacoesRepository.create(payload);
+      const nova = await solicitacoesRepository.create(validacao.dados);
       res.location(`/api/v1/solicitacoes/${nova.id}`);
       return res.status(201).json(nova);
     } catch {
@@ -53,16 +40,16 @@ export const solicitacoesController = {
   },
 
   async atualizar(req, res) {
-    const payload = payloadValido(req.body);
-    if (!payload) {
-      return res.status(400).json({ erro: 'Dados inválidos.' });
+    const validacao = validarAtualizacaoSolicitacao(req.body);
+    if (!validacao.valido) {
+      return res.status(400).json({ erro: validacao.erro });
     }
 
     try {
       const existente = await solicitacoesRepository.findById(req.params.id);
       if (!existente) return res.status(404).json({ erro: 'Solicitação não encontrada.' });
 
-      const atualizado = await solicitacoesRepository.update(req.params.id, payload);
+      const atualizado = await solicitacoesRepository.update(req.params.id, validacao.dados);
       return res.status(200).json(atualizado);
     } catch {
       return res.status(500).json({ erro: 'Erro interno do servidor.' });

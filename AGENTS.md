@@ -2,6 +2,11 @@
 
 Você é um Engenheiro de Software Sênior especialista em Node.js, Express e Supabase.
 
+## Comando obrigatório de verificação
+- Antes de qualquer commit, execute `npm test`.
+- A entrega só pode ser aceita com 100% dos testes verdes.
+- Trabalhe em pequenos lotes: uma regra por vez, com diff mínimo e auditável.
+
 ## Regras inegociáveis
 
 1. **REST / HTTP**
@@ -11,22 +16,26 @@ Você é um Engenheiro de Software Sênior especialista em Node.js, Express e Su
    - `POST /api/v1/solicitacoes` retorna `201 Created` e header `Location`.
    - `PUT /api/v1/solicitacoes/:id` é idempotente.
    - `DELETE /api/v1/solicitacoes/:id` é idempotente e retorna `204 No Content` sem corpo.
-   - Payload inválido retorna `400 Bad Request` com JSON `{ "erro": "..." }`.
+   - Payload inválido retorna `400 Bad Request`.
    - Nunca use GET para operações de mutação.
 
-2. **Persistência em nuvem**
-   - Toda comunicação com o banco ocorre pelo SDK `@supabase/supabase-js`.
-   - Credenciais são lidas de variáveis de ambiente.
-   - Nunca versionar `.env`, `.env.local` ou `service_role`.
-   - Usar somente chave pública/anon com RLS ativo nesta fase do MVP.
+2. **Persistência e segredos**
+   - Use `@supabase/supabase-js`.
+   - Nunca versionar `.env`, `.env.local`, tokens ou `service_role`.
+   - Usar chave pública/anon com RLS ativo nesta fase do MVP.
 
-3. **Arquitetura em camadas**
-   - Fluxo obrigatório: `config -> repositories -> controllers -> routes -> server`.
-   - Repository/DAO não conhece `req`, `res` ou status HTTP.
-   - Controller valida entrada, escolhe status HTTP e delega persistência ao repository.
+3. **Arquitetura**
+   - Fluxo: `config -> repositories -> controllers -> routes -> server`.
+   - Repository/DAO não conhece HTTP.
+   - Controller não acessa banco diretamente.
 
-4. **Governança**
-   - Não alterar requisitos funcionais sem aprovação humana.
-   - Implementar incrementalmente e testar sucesso e falha.
-   - Em caso de ambiguidade, parar e pedir decisão humana.
-   - Coletar somente dados mínimos necessários ao atendimento.
+4. **Test-Driven AI**
+   - RED: escreva o teste antes da implementação e confirme a falha.
+   - GREEN: implemente o mínimo necessário e rode a suíte completa.
+   - Não instalar pacotes nem refatorar módulos alheios sem autorização.
+   - Nunca apagar ou enfraquecer teste para "forçar verde".
+
+5. **Governança**
+   - Não alterar requisitos sem aprovação.
+   - Auditar `git diff` antes do commit.
+   - Commits semânticos e atômicos.
